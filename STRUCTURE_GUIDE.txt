@@ -1,0 +1,158 @@
+📁 HEALIX BACKEND STRUCTURE - COMPLETE FILE ORGANIZATION
+
+backend/
+│
+├── 📄 app.py                          ← START HERE: Main Flask application entry point
+├── 📄 wsgi.py                         ← Production server entry point
+├── 📄 requirements.txt                ← All Python dependencies
+├── 📄 .env.example                    ← Environment variables template (COPY to .env)
+├── 📄 .gitignore                      ← Git ignore rules
+├── 📄 README.md                       ← Project documentation
+│
+│
+├── 📁 src/                            ← MAIN APPLICATION CODE
+│   │
+│   ├── 📄 __init__.py                 ← App factory (creates Flask app, initializes DB)
+│   │
+│   ├── 📁 config/                     ← CONFIGURATION FILES
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 settings.py             ← Database & Flask settings (Dev/Prod/Test configs)
+│   │   └── 📄 database.py             ← Database connection utilities
+│   │
+│   ├── 📁 models/                     ← DATABASE MODELS (SQLAlchemy ORM)
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 user.py                 ← User model (patients, providers, admins)
+│   │   ├── 📄 biomarker.py            ← Biomarker readings (heart rate, O2, steps, etc)
+│   │   ├── 📄 appointment.py          ← Appointment scheduling model
+│   │   ├── 📄 prescription.py         ← Medical prescriptions model
+│   │   ├── 📄 device.py               ← Wearable devices model
+│   │   ├── 📄 alert.py                ← Health alerts model
+│   │   ├── 📄 goal.py                 ← User health goals model
+│   │   ├── 📄 audit_log.py            ← Audit logging model (compliance tracking)
+│   │   └── 📄 provider_patient.py     ← Provider-patient relationships
+│   │
+│   ├── 📁 controllers/                ← BUSINESS LOGIC (Handle requests)
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 auth_controller.py      ← Registration, login, password reset
+│   │   ├── 📄 biomarker_controller.py ← Health data endpoints
+│   │   ├── 📄 appointment_controller.py ← Appointment management
+│   │   ├── 📄 prescription_controller.py ← Prescription management
+│   │   ├── 📄 admin_controller.py     ← Admin features (user management, etc)
+│   │   └── 📄 export_controller.py    ← PDF export functionality
+│   │
+│   ├── 📁 routes/                     ← API ENDPOINTS (URL routing)
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 auth_routes.py          ← /api/auth/* endpoints
+│   │   ├── 📄 biomarker_routes.py     ← /api/biomarkers/* endpoints
+│   │   ├── 📄 appointment_routes.py   ← /api/appointments/* endpoints
+│   │   ├── 📄 prescription_routes.py  ← /api/prescriptions/* endpoints
+│   │   ├── 📄 admin_routes.py         ← /api/admin/* endpoints
+│   │   └── 📄 export_routes.py        ← /api/export/* endpoints
+│   │
+│   ├── 📁 middleware/                 ← REQUEST PROCESSING
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 auth_middleware.py      ← JWT token verification
+│   │   ├── 📄 authorization.py        ← Role-based access control (patient/provider/admin)
+│   │   ├── 📄 error_handler.py        ← Global error handling
+│   │   └── 📄 rate_limiter.py         ← Request rate limiting
+│   │
+│   └── 📁 utils/                      ← HELPER FUNCTIONS
+│       ├── 📄 __init__.py
+│       ├── 📄 audit_logger.py         ← Log audit events to database
+│       ├── 📄 pdf_generator.py        ← Generate PDF reports
+│       ├── 📄 validators.py           ← Input validation (email, password, etc)
+│       ├── 📄 decorators.py           ← Custom function decorators
+│       └── 📄 helpers.py              ← General utility functions
+│
+├── 📁 migrations/                     ← SQL MIGRATION FILES (Database schema)
+│   ├── 📄 001_create_users.sql        ← User table
+│   ├── 📄 002_create_biomarkers.sql   ← Biomarker readings table
+│   ├── 📄 003_create_appointments.sql ← Appointment table
+│   ├── 📄 004_create_prescriptions.sql ← Prescription table
+│   ├── 📄 005_create_devices.sql      ← Device table
+│   ├── 📄 006_create_provider_patient_relationships.sql
+│   ├── 📄 007_create_goals.sql        ← Goals table
+│   ├── 📄 008_create_audit_logs.sql   ← Audit logs table
+│   └── 📄 009_create_alerts.sql       ← Alerts table
+│
+└── 📁 tests/                          ← UNIT & INTEGRATION TESTS
+    ├── 📄 __init__.py
+    ├── 📄 test_auth.py                ← Test authentication endpoints
+    ├── 📄 test_biomarkers.py          ← Test biomarker APIs
+    └── 📄 test_admin.py               ← Test admin features
+
+═════════════════════════════════════════════════════════════════
+
+📖 HOW IT ALL WORKS TOGETHER:
+
+1️⃣  REQUEST COMES IN
+   ├─ User calls: POST /api/auth/login
+   └─ Hits: routes/auth_routes.py
+
+2️⃣  ROUTE PROCESSING
+   ├─ Route receives request
+   ├─ Applies middleware (error handling, rate limit)
+   └─ Forwards to controller
+
+3️⃣  CONTROLLER LOGIC
+   ├─ controllers/auth_controller.py processes the login
+   ├─ Uses models to query database
+   ├─ Generates JWT token
+   └─ Returns response
+
+4️⃣  MODEL LAYER (Database)
+   ├─ models/user.py defines User table structure
+   ├─ Uses SQLAlchemy ORM
+   ├─ Communicates with PostgreSQL
+   └─ Returns data to controller
+
+5️⃣  RESPONSE SENT BACK
+   ├─ Controller returns JSON response
+   ├─ Middleware processes response
+   └─ Client receives data
+
+═════════════════════════════════════════════════════════════════
+
+🔐 ARYA'S FILES (Your responsibility):
+
+src/middleware/auth_middleware.py       ← JWT token verification
+src/middleware/authorization.py         ← Role-based access control
+src/controllers/admin_controller.py     ← Admin user management
+src/controllers/export_controller.py    ← PDF exports
+src/utils/audit_logger.py              ← Audit logging
+models/audit_log.py                     ← Audit logs table
+migrations/008_create_audit_logs.sql   ← Audit logs schema
+
+═════════════════════════════════════════════════════════════════
+
+⚙️ COMMON DEVELOPMENT TASKS:
+
+Adding a New API Endpoint:
+1. Create migration file (migrations/XXX_create_table.sql)
+2. Create model (src/models/new_model.py)
+3. Create controller (src/controllers/new_controller.py)
+4. Create routes (src/routes/new_routes.py)
+5. Add middleware if needed (src/middleware/)
+
+Adding Validation:
+1. Add to src/utils/validators.py
+2. Use in controller before processing
+
+Adding Database Query:
+1. Add method to model in src/models/
+2. Call from controller in src/controllers/
+3. Return to route in src/routes/
+
+═════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST FOR SETUP:
+
+□ Create all directories (DONE ✓)
+□ Create all __init__.py files (DONE ✓)
+□ Create app.py, wsgi.py (DONE ✓)
+□ Create requirements.txt (DONE ✓)
+□ Create .env.example (DONE ✓)
+□ Create config/settings.py (DONE ✓)
+□ Create SQL migration files (NEXT - see SQL folder)
+
+═════════════════════════════════════════════════════════════════
