@@ -34,11 +34,23 @@ export const Navbar = () => {
     >
       {/* Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <img
-          src="/src/assets/logo.png"
-          alt="HEALIX logo"
-          style={{ width: "36px", height: "36px", objectFit: "contain" }}
-        />
+        <div
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "8px",
+            background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: "800",
+            fontSize: "14px",
+            color: "#fff",
+            letterSpacing: "-0.5px",
+          }}
+        >
+          Hx
+        </div>
         <span
           style={{
             color: "#f1f5f9",
@@ -53,13 +65,43 @@ export const Navbar = () => {
 
       {/* Nav Links */}
       <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        {[
+        {user?.role === "patient" && [
           { label: "Dashboard", path: basePath },
           { label: "Vitals", path: `${basePath}/vitals` },
           { label: "Goals", path: `${basePath}/goals` },
           { label: "Appointments", path: `${basePath}/appointments` },
           { label: "Prescriptions", path: `${basePath}/prescriptions` },
           { label: "Assistant", path: `${basePath}/assistant` },
+          { label: "Settings", path: `${basePath}/settings` },
+        ].map((item) => (
+          <Link
+            key={item.label}
+            to={item.path}
+            style={{
+              color: "#94a3b8",
+              textDecoration: "none",
+              fontSize: "14px",
+              fontWeight: "500",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              transition: "all 0.15s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = "#f1f5f9";
+              e.target.style.background = "#1e293b";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = "#94a3b8";
+              e.target.style.background = "transparent";
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+
+        {(user?.role === "provider" || user?.role === "admin") && [
+          { label: "Appointments", path: `${basePath}/appointments` },
+          { label: "Prescriptions", path: `${basePath}/prescriptions` },
           { label: "Settings", path: `${basePath}/settings` },
         ].map((item) => (
           <Link

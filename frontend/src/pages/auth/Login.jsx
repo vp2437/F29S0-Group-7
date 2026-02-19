@@ -243,7 +243,7 @@ export const Login = () => {
             />
             <span
               style={{
-                color: "#f1f5f9",
+                color: "#0f172a",
                 fontWeight: "700",
                 fontSize: "18px",
                 letterSpacing: "-0.3px",
