@@ -205,7 +205,7 @@ export const Login = () => {
 
           <h1 className="healix-title">Healix</h1>
           <div className="healix-line" />
-          <p className="healix-tagline">Your Health. Your Journey.</p>
+          <p className="healix-tagline">Your Health, Visualized</p>
         </div>
 
       </div>
@@ -243,7 +243,7 @@ export const Login = () => {
             />
             <span
               style={{
-                color: "#0f172a",
+                color: "#1C398E",
                 fontWeight: "700",
                 fontSize: "18px",
                 letterSpacing: "-0.3px",

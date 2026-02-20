@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Navbar } from "../../components/Navbar";
 
 const initialPrescriptions = [
   { id: 1, name: "Atorvastatin", dosage: "20mg", frequency: "Once daily", refillsLeft: 3, quantityLeft: 28, totalQuantity: 30, doctor: "Dr. Sarah Mitchell", prescribed: "Jan 15, 2026", category: "Cardiovascular", active: true },
@@ -59,7 +58,6 @@ export const Prescriptions = () => {
 
   return (
     <>
-      <Navbar />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px);} to { opacity:1; transform:translateY(0);} }

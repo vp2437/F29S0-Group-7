@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../context/AuthContext";
 
 export const Settings = () => {
@@ -65,7 +64,6 @@ export const Settings = () => {
 
   return (
     <>
-      <Navbar />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px);} to { opacity:1; transform:translateY(0);} }
